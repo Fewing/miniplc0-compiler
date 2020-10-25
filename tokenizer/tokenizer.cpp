@@ -150,7 +150,7 @@ Tokenizer::nextToken() {
         // 请填空：
         // 如果当前已经读到了文件尾，则解析已经读到的字符串为整数
         if (!current_char.has_value()) {
-          int out;
+          std::string out;
           ss >> out;
           return std::make_pair(
               std::make_optional<Token>(TokenType::UNSIGNED_INTEGER, out, pos,
@@ -164,7 +164,7 @@ Tokenizer::nextToken() {
           ss << ch;
         } else {
           unreadLast();
-          int out;
+          std::string out;
           ss >> out;
           return std::make_pair(
               std::make_optional<Token>(TokenType::UNSIGNED_INTEGER, out, pos,

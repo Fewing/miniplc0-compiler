@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "C:\\Users\\yangz\\Desktop\\miniplc0-compiler\\build\\miniplc0.exe",
-            "args": ["hello.plc0","-t"],
+            "args": ["hello.plc0","-l"],
             "stopAtEntry": false,
             "cwd": "C:\\Users\\yangz\\Desktop\\miniplc0-compiler\\build",
             "environment": [],
