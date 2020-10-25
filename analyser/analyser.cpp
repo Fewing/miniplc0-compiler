@@ -269,7 +269,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
   auto ident = next.value();
   auto name = ident.GetValueString();
   // 未定义
-  if (isDeclared(name)) {
+  if (!isDeclared(name)) {
     return {CompilationError(_current_pos, ErrorCode::ErrNotDeclared)};
   }
   // 是常量
@@ -287,6 +287,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
   }
   auto err = analyseExpression();
   if (err.has_value()) return err;
+  if (!isInitializedVariable(name)) makeInitialized(next.value());
   return {};
 }
 
