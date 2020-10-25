@@ -178,7 +178,7 @@ std::optional<CompilationError> Analyser::analyseStatementSequence() {
         if (err.has_value()) return err;
         break;
       case TokenType::SEMICOLON:
-        return {};
+        nextToken();
         break;
       default:
         break;
@@ -279,7 +279,7 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
   // 存储这个标识符
   auto index = getIndex(name);
   _instructions.emplace_back(Operation::STO, index);
-  makeInitialized(name);
+  if (!isInitializedVariable(name)) makeInitialized(name);
   next = nextToken();
   if (!next.has_value() || next.value().GetType() != TokenType::EQUAL_SIGN) {
     return std::make_optional<CompilationError>(
@@ -287,7 +287,6 @@ std::optional<CompilationError> Analyser::analyseAssignmentStatement() {
   }
   auto err = analyseExpression();
   if (err.has_value()) return err;
-  if (!isInitializedVariable(name)) makeInitialized(next.value());
   return {};
 }
 
